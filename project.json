@@ -1,0 +1,21 @@
+{
+  "debugMode": 1,
+  "noCache": true,
+  "showFPS": true,
+  "frameRate": 60,
+  "id": "gameCanvas",
+  "renderMode": 0,
+  "jsList": [
+    "src/global.js",
+    "src/resource.js",
+    "src/elements/Barrier.js",
+    "src/elements/Building.js",
+    "src/elements/Obstacle.js",
+    "src/elements/Fireball.js",
+    "src/elements/Role.js",
+    "src/elements/Volcano.js",
+    "src/scene/HomeScene.js",
+    "src/scene/MenuScene.js",
+    "src/scene/PlayScene.js"
+  ]
+}
