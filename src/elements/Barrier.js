@@ -11,7 +11,7 @@ var Barrier = cc.Sprite.extend({
     },
 
     update: function (dt) {
-        this.x -= v_PlaySpeed;
+        this.x -= v_PlaySpeed * v_PlayState;
     },
 
     unuse: function () {

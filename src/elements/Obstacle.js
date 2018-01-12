@@ -1,11 +1,15 @@
 var Obstacle = cc.Layer.extend({
-    _scene: null,
+    _role: null,
     _obstacles: null,
 
-    ctor: function (scene) {
+    _onCollided: null,
+
+    ctor: function (role, onCollided) {
         this._super();
 
-        this._scene = scene;
+        this._role = role;
+        this._onCollided = onCollided;
+
         this._obstacles = [];
     },
 
@@ -32,12 +36,30 @@ var Obstacle = cc.Layer.extend({
             var obstacle = this._obstacles[i];
             if(obstacle.x > 0) {
                 obstacle.update(dt);
+
+                // Collision detection - Check if role collides with any obstacle.
+                var pos = obstacle.getPosition();
+                var rect = this._role.getBoundingBox();
+                if(cc.rectContainsPoint(rect, pos)) {
+                    cc.log('onCollided');
+                    if(this._onCollided) {
+                        this._onCollided(obstacle, this._role);
+                    }
+                }
+
             } else {
                 this._obstacles.splice(i, 1);
 
                 cc.pool.putInPool(obstacle);
             }
         }
+    },
+
+    onEnter: function () {
+        this._super();
+    },
+
+    onExit: function () {
     },
 
     removeAll: function () {

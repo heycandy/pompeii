@@ -25,6 +25,7 @@ cc.game.onStart = function () {
         cc.spriteFrameCache.addSpriteFrames(p_Role);
         cc.spriteFrameCache.addSpriteFrames(p_Item0);
         cc.spriteFrameCache.addSpriteFrames(p_UI0);
+        cc.spriteFrameCache.addSpriteFrames(p_UI1);
 
         cc.director.runScene(new HomeScene());
     }, this);

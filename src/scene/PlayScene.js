@@ -25,7 +25,7 @@ var PlaySceneBgLayer = cc.Layer.extend({
 // Animation Layer (Animation elements)
 var PlaySceneAniLayer = cc.Layer.extend({
 
-    ground: null,
+    _ground: null,
 
     building: null,
     role: null,
@@ -34,19 +34,19 @@ var PlaySceneAniLayer = cc.Layer.extend({
     ctor: function (ground) {
         this._super();
 
-        this.ground = ground;
+        this._ground = ground;
+
         this.building = new Building();
         this.role = new Role();
-        this.obstacle = new Obstacle();
+        this.obstacle = new Obstacle(this.role, function (obstacle, role) {
+            //TODO on collided
+        });
     },
 
     init: function () {
         this._super();
 
-        var size = cc.director.getWinSize();
-        var width2 = Math.floor(size.width / 2);
-        var height2 = Math.floor(size.height / 2);
-        var groundHeight = this.ground.getContentSize().height;
+        var groundHeight = this._ground.getContentSize().height;
 
         this.building.setAnchorPoint(0, 0);
         this.building.setPosition(0, groundHeight);
@@ -54,12 +54,11 @@ var PlaySceneAniLayer = cc.Layer.extend({
 
         this.building.init();
 
-        var rolePosX = width2 - 100;
         // 修正角色Y轴有效像素
         var rolePosY = groundHeight - 10;
 
         this.role.setAnchorPoint(0, 0);
-        this.role.setPosition(rolePosX, rolePosY);
+        this.role.setPosition(300, rolePosY);
         this.addChild(this.role, 0);
 
         this.role.init();
@@ -83,80 +82,119 @@ var PlaySceneAniLayer = cc.Layer.extend({
 // UI Layer (Button, Label)
 var PlaySceneUILayer = cc.Layer.extend({
 
-    role: null,
-    grade: null,
+    _role: null,
 
-    touchListener: null,
+    backBtn: null,
+    gradeBtn: null,
+    gradeLabel: null,
+    leftBtn: null,
+    rightBtn: null,
+    leapBtn: null,
 
     ctor: function (role) {
         this._super();
 
+        this._role = role;
+        this.backBtn = new Button(
+            'get back_UI.png', 'get back_UI_Hit.png',
+            function () {
 
-        this.role = role;
-        this.grade = new cc.LabelTTF(v_PlayDistance, "Impact", 38);
+            }, function () {
+                var nextScene = new HomeScene();
+
+                cc.director.runScene(nextScene);
+            });
+
+        this.gradeBtn = new Button('grade.png', 'grade_UI.png');
+        this.gradeLabel = new cc.LabelTTF(v_PlayDistance, "Impact", 38);
+
+        var self = this;
+        this.leftBtn = new Button(
+            'left_right_leap.png', 'left_right_leap_UI_Hit.png',
+            function () {
+                v_PlayState = c_PLAY_STATE_LEFT;
+
+                self._role.left();
+            }, function () {
+                v_PlayState = c_PLAY_STATE_IDLE;
+
+                self._role.idle();
+            });
+
+        this.rightBtn = new Button(
+            'left_right_leap.png', 'left_right_leap_UI_Hit.png',
+            function () {
+                v_PlayState = c_PLAY_STATE_RIGHT;
+
+                self._role.right();
+            }, function () {
+                v_PlayState = c_PLAY_STATE_IDLE;
+
+                self._role.idle();
+            });
+
+        this.leapBtn = new Button(
+            'left_right_leap.png', 'left_right_leap_UI_Hit.png',
+            function () {
+
+            }, function () {
+                self._role.leap();
+            });
 
     },
 
     init: function () {
         var size = cc.director.getWinSize();
 
-        this.grade.setAnchorPoint(1, 1);
-        this.grade.setPosition(size.width, size.height);
-        this.addChild(this.grade, 0);
+        this.backBtn.setAnchorPoint(0, 1);
+        this.backBtn.setPosition(0, size.height);
+        this.addChild(this.backBtn);
+
+        this.gradeBtn.setAnchorPoint(1, 1);
+        this.gradeBtn.setPosition(size.width, size.height);
+        this.addChild(this.gradeBtn);
+
+        this.gradeLabel.setAnchorPoint(1, 1);
+        this.gradeLabel.setPosition(size.width, size.height);
+        this.addChild(this.gradeLabel);
+
+        this.leftBtn.rotation = -90;
+        this.leftBtn.setAnchorPoint(0.5, 0.5);
+        this.leftBtn.setPosition(120, 80);
+        this.addChild(this.leftBtn);
+
+        this.rightBtn.rotation = 90;
+        this.rightBtn.setAnchorPoint(0.5, 0.5);
+        this.rightBtn.setPosition(300, 80);
+        this.addChild(this.rightBtn);
+
+        this.leapBtn.setAnchorPoint(0.5, 0.5);
+        this.leapBtn.setPosition(size.width - 120, 80);
+        this.addChild(this.leapBtn);
 
     },
 
     update: function () {
-        this.grade.setString(v_Grade);
+        v_PlayGrade = Math.floor(v_PlayDistance / 10);
+
+        this.gradeLabel.setString(v_PlayGrade);
     },
 
     onEnter: function () {
         this._super();
 
-        this.addTouchListener();
     },
 
     onExit: function () {
-        this.removeTouchListener();
-    },
 
-    addTouchListener: function () {
-        var self = this;
-        this.touchListener = cc.EventListener.create({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: function () {
-                cc.log('onTouchBegan');
-
-                return true;
-            },
-            onTouchMoved: function () {
-                cc.log('onTouchMoved');
-
-                return true;
-            },
-            onTouchEnded: function () {
-                cc.log('onTouchEnded');
-
-                v_PlayState = 1;
-
-                self.role.run();
-
-                return false;
-            }
-        });
-
-        cc.eventManager.addListener(this.touchListener, this);
-
-    },
-
-    removeTouchListener: function () {
-        cc.eventManager.removeListener(this.touchListener);
     }
 
 });
 
 var PlayScene = cc.Scene.extend({
+
+    _ground: null,
+    _role: null,
 
     bgLayer: null,
     aniLayer: null,
@@ -166,8 +204,22 @@ var PlayScene = cc.Scene.extend({
         this._super();
 
         this.bgLayer = new PlaySceneBgLayer();
-        this.aniLayer = new PlaySceneAniLayer(this.bgLayer.ground);
-        this.uiLayer = new PlaySceneUILayer(this.aniLayer.role);
+        this._ground = this.bgLayer.ground;
+
+        this.aniLayer = new PlaySceneAniLayer(this._ground);
+        this._role = this.aniLayer.role;
+
+        this.uiLayer = new PlaySceneUILayer(this._role);
+
+        this.init();
+
+    },
+
+    init: function () {
+        v_PlayState = 0;
+        v_PlaySpeed = 5;
+        v_PlayDistance = 0;
+        v_PlayGrade = 0;
 
     },
 
@@ -192,15 +244,10 @@ var PlayScene = cc.Scene.extend({
     },
 
     update: function (dt) {
-        if (v_PlayState) {
-            v_PlayDistance = v_PlayDistance + v_PlaySpeed;
-            v_Grade = Math.floor(v_PlayDistance / 10);
+        v_PlayDistance = v_PlayDistance + v_PlaySpeed * v_PlayState;
 
-            this.aniLayer.update(dt);
-            this.uiLayer.update(dt);
-        } else {
-
-        }
+        this.aniLayer.update(dt);
+        this.uiLayer.update(dt);
 
     }
 });

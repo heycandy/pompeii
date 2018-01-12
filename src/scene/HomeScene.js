@@ -21,11 +21,13 @@ var HomeSceneBgLayer = cc.Layer.extend({
 var HomeSceneAniLayer = cc.Layer.extend({
 
     volcano: null,
+    role: null,
 
     ctor: function () {
         this._super();
 
         this.volcano = new Volcano();
+        this.role = new Role();
     },
 
     init: function () {
@@ -39,6 +41,12 @@ var HomeSceneAniLayer = cc.Layer.extend({
 
         this.volcano.init();
 
+        this.role.setAnchorPoint(0, 0);
+        this.role.setPosition(300, 0);
+        this.addChild(this.role, 0);
+
+        this.role.init();
+
     },
 
     update: function (dt) {
@@ -49,15 +57,63 @@ var HomeSceneAniLayer = cc.Layer.extend({
 // UI Layer (Button, Label)
 var HomeSceneUILayer = cc.Layer.extend({
 
-    touchListener: null,
+    nameLabel: null,
+    startBtn: null,
+    topBtn: null,
+    roleBtn: null,
 
     ctor: function () {
         this._super();
 
+        this.nameLabel = new cc.Sprite('#Game name.png');
+        this.startBtn = new Button(
+            'Start game_ui.png', 'Start game_ui_Hit.png',
+            function () {
+
+            }, function () {
+                var nextScene = new PlayScene();
+
+                cc.director.runScene(nextScene);
+            }
+        );
+
+        this.topBtn = new Button(
+            'TOP_UI.png', 'TOP_UI_Hit.png',
+            function () {
+
+            }, function () {
+
+            }
+        );
+
+        this.roleBtn = new Button(
+            'Role_UI.png', 'Role_UI_Hit.png',
+            function () {
+
+            }, function () {
+
+            }
+        );
     },
 
     init: function () {
         var size = cc.director.getWinSize();
+
+        this.nameLabel.setAnchorPoint(1, 0);
+        this.nameLabel.setPosition(size.width - 200, size.height - 200);
+        this.addChild(this.nameLabel, 0);
+
+        this.startBtn.setAnchorPoint(1, 0);
+        this.startBtn.setPosition(size.width - 400, 300);
+        this.addChild(this.startBtn, 0);
+
+        this.topBtn.setAnchorPoint(1, 0);
+        this.topBtn.setPosition(size.width - 400, 200);
+        this.addChild(this.topBtn, 0);
+
+        this.roleBtn.setAnchorPoint(1, 0);
+        this.roleBtn.setPosition(size.width - 400, 100);
+        this.addChild(this.roleBtn, 0);
 
     },
 
@@ -68,45 +124,10 @@ var HomeSceneUILayer = cc.Layer.extend({
     onEnter: function () {
         this._super();
 
-        this.addTouchListener();
     },
 
     onExit: function () {
-        this.removeTouchListener();
-    },
 
-    addTouchListener: function () {
-        this.touchListener = cc.EventListener.create({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: function () {
-                cc.log('onTouchBegan');
-
-                return true;
-            },
-            onTouchMoved: function () {
-                cc.log('onTouchMoved');
-
-                return true;
-            },
-            onTouchEnded: function () {
-                cc.log('onTouchEnded');
-
-                var nextScene = new PlayScene();
-                // var transScene = new cc.TransitionMoveInR.create(1, nextScene);
-
-                cc.director.runScene(nextScene);
-
-                return false;
-            }
-        });
-
-        cc.eventManager.addListener(this.touchListener, this);
-
-    },
-
-    removeTouchListener: function () {
-        cc.eventManager.removeListener(this.touchListener);
     }
 
 });

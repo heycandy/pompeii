@@ -1,7 +1,7 @@
 {
   "debugMode": 1,
   "noCache": true,
-  "showFPS": true,
+  "showFPS": false,
   "frameRate": 60,
   "id": "gameCanvas",
   "renderMode": 0,
@@ -16,6 +16,7 @@
     "src/elements/Volcano.js",
     "src/scene/HomeScene.js",
     "src/scene/MenuScene.js",
-    "src/scene/PlayScene.js"
+    "src/scene/PlayScene.js",
+    "src/ui/Button.js"
   ]
 }

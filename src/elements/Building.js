@@ -39,7 +39,7 @@ var Building = cc.Layer.extend({
         if(-posX > this.offsetX) {
             posX = size.width;
         } else {
-            posX = posX - v_PlaySpeed;
+            posX = posX - v_PlaySpeed * v_PlayState;
         }
 
         this.x = posX;
