@@ -82,7 +82,9 @@ var HomeSceneUILayer = cc.Layer.extend({
             function () {
 
             }, function () {
+                var rankingList = new RankingList();
 
+                cc.director.runScene(rankingList)
             }
         );
 
@@ -91,7 +93,9 @@ var HomeSceneUILayer = cc.Layer.extend({
             function () {
 
             }, function () {
+                var chooseRole = new ChooseRole();
 
+                cc.director.runScene(chooseRole)
             }
         );
     },

@@ -17,6 +17,8 @@
     "src/scene/HomeScene.js",
     "src/scene/MenuScene.js",
     "src/scene/PlayScene.js",
+    "src/scene/RankingList.js",
+    "src/scene/ChooseRole.js",
     "src/ui/Button.js"
   ]
 }

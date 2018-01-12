@@ -3,12 +3,14 @@ var PlaySceneBgLayer = cc.Layer.extend({
 
     background: null,
     ground: null,
+    anwser:null,
 
     ctor: function () {
         this._super();
 
         this.background = new cc.Sprite(i_BGPlaying);
         this.ground = new cc.Sprite('#MS_ground.png');
+
     },
 
     init: function () {
@@ -19,6 +21,8 @@ var PlaySceneBgLayer = cc.Layer.extend({
         this.ground.setAnchorPoint(0, 0);
         this.ground.setPosition(0, 0);
         this.addChild(this.ground, 0);
+
+
     }
 });
 
@@ -107,6 +111,7 @@ var PlaySceneUILayer = cc.Layer.extend({
 
         this.gradeBtn = new Button('grade.png', 'grade_UI.png');
         this.gradeLabel = new cc.LabelTTF(v_PlayDistance, "Impact", 38);
+        this.anwser = new cc.Sprite(I_Anwser)
 
         var self = this;
         this.leftBtn = new Button(
@@ -171,6 +176,10 @@ var PlaySceneUILayer = cc.Layer.extend({
         this.leapBtn.setAnchorPoint(0.5, 0.5);
         this.leapBtn.setPosition(size.width - 120, 80);
         this.addChild(this.leapBtn);
+
+        this.anwser.setAnchorPoint(0, 0);
+        this.anwser.setPosition(800, 100);
+        this.addChild(this.anwser, 0);
 
     },
 
