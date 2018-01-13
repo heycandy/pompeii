@@ -7,6 +7,7 @@ var i_BGRole = "graphics/Role_BG.png";
 var i_BGTop = "graphics/TOP_BG.png";
 var i_Texture = "textures/texture.png";
 var I_Anwser = 'graphics/Anwser_BG.png';
+var I_Correct = 'graphics/Correct_BG.jpg';
 var p_Texture = "textures/texture.plist";
 var i_Role = "textures/Role.png";
 var p_Role = "textures/Role.plist";
