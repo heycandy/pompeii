@@ -19,6 +19,8 @@
     "src/scene/PlayScene.js",
     "src/scene/RankingList.js",
     "src/scene/ChooseRole.js",
-    "src/ui/Button.js"
+    "src/ui/Button.js",
+    "src/ui/Lable.js",
+    "src/ui/Question.js"
   ]
 }
