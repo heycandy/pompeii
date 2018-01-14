@@ -176,11 +176,11 @@
             <key>awarded_marks_00001.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{304,4020},{142,56}}</string>
+                <string>{{1370,3704},{142,56}}</string>
                 <key>offset</key>
                 <string>{-5,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{44,22},{142,56}}</string>
                 <key>sourceSize</key>
@@ -189,7 +189,7 @@
             <key>awarded_marks_00002.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,4022},{142,56}}</string>
+                <string>{{318,4020},{142,56}}</string>
                 <key>offset</key>
                 <string>{-5,0}</string>
                 <key>rotated</key>
@@ -202,13 +202,26 @@
             <key>awarded_marks_00003.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{244,3920},{144,58}}</string>
+                <string>{{2,4022},{144,58}}</string>
                 <key>offset</key>
                 <string>{-5,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{43,21},{144,58}}</string>
+                <key>sourceSize</key>
+                <string>{240,100}</string>
+            </dict>
+            <key>awarded_marks_00004.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{244,3920},{146,72}}</string>
+                <key>offset</key>
+                <string>{-5,-1}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{42,15},{146,72}}</string>
                 <key>sourceSize</key>
                 <string>{240,100}</string>
             </dict>
@@ -781,7 +794,7 @@
             <key>size</key>
             <string>{4096,4096}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7f69a9be3b9ad30ccbe3771a1f7f5fa0$</string>
+            <string>$TexturePacker:SmartUpdate:031808be97042b668473ba6d0990f7f4$</string>
             <key>textureFileName</key>
             <string>Item0.png</string>
         </dict>

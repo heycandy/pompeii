@@ -1,4 +1,4 @@
-var Lable = cc.LabelTTF.extend({
+var Label = cc.LabelTTF.extend({
 
     // _text: null,
 

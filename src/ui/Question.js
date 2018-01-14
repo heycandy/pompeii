@@ -5,6 +5,8 @@ Question = cc.Layer.extend({
     _options: [],
     _answer: '',
 
+    awarded: null,
+
     ctor: function () {
         this._super();
 
@@ -13,63 +15,37 @@ Question = cc.Layer.extend({
         this.question = QuestionAndAnswer.questions[NUM];
         this.options = QuestionAndAnswer.options[NUM];
         this.answer = QuestionAndAnswer.answers[NUM];
+        this.awarded = new Awarded();
     },
 
     init: function () {
         this._super();
         var self = this;
-        this.title = new Lable('题目', "Impact", 36, function () {
-                alert('题目')
-            return true
-            },
-            function () {
-                alert('题目')
-                return true
-            });
-        this.question = new Lable(this.question, "Impact", 24, function () {
-                cc.log(self.question)
-
-            },
-            function () {
-                cc.log(self.question)
-            });
-        this.option1 = new Lable(this.options.A, "Impact", 24, function() {
-            cc.log(self.options.A[0])
-            cc.log(self.answer[0])
+        this.title = new cc.LabelTTF('题目', "Impact", 48);
+        this.question = new cc.LabelTTF(this.question, "Impact", 36, cc.size(600, 200));
+        this.option1 = new Label(this.options.A, "Impact", 36, function () {
             self.isRight(self.options.A[0], self.answer[0])
 
-        },function() {
+        }, function () {
         });
 
-        this.option2 = new Lable(this.options.B, "Impact", 24, function() {
-            cc.log(self.options.B[0])
-            cc.log(self.answer[0])
+        this.option2 = new Label(this.options.B, "Impact", 36, function () {
             self.isRight(self.options.B[0], self.answer[0])
-            self.options.B.style.fontWeight = 'blod'
-        },function() {
+        }, function () {
         });
 
-        this.option3 = new Lable(this.options.C, "Impact", 24, function() {
-            cc.log(self.options.C[0])
-            cc.log(self.answer[0])
+        this.option3 = new Label(this.options.C, "Impact", 36, function () {
             self.isRight(self.options.C[0], self.answer[0])
-            self.options.C.style.fontWeight = 'blod'
 
-        },function() {
+        }, function () {
         });
 
-        this.option4 = new Lable(this.options.D, "Impact", 24, function() {
-            cc.log(self.options.D[0])
-            cc.log(self.answer[0])
+        this.option4 = new Label(this.options.D, "Impact", 36, function () {
             self.isRight(self.options.D[0], self.answer[0])
-            self.options.D.style.fontWeight = 'blod'
-        },function() {
+        }, function () {
         });
 
-        this.addScorelabel = new Lable('回答正确加分哦', "Impact", 24, function () {
-            },
-            function () {
-            });
+        this.addScorelabel = new cc.LabelTTF('回答正确加分哦', "Impact", 32);
 
         this.correctAnwser = new cc.Sprite(I_Correct);
 
@@ -79,11 +55,11 @@ Question = cc.Layer.extend({
         this.addChild(this.anwserBg);
 
         this.title.setAnchorPoint(0, 0);
-        this.title.setPosition(size.width - 900, size.height - 220);
+        this.title.setPosition(size.width - 900, size.height - 250);
         this.addChild(this.title);
 
         this.question.setAnchorPoint(0, 0);
-        this.question.setPosition(size.width - 900, size.height - 300);
+        this.question.setPosition(size.width - 850, size.height - 450);
         this.addChild(this.question);
 
         this.option1.setAnchorPoint(0, 0);
@@ -103,8 +79,14 @@ Question = cc.Layer.extend({
         this.addChild(this.option4);
 
         this.addScorelabel.setAnchorPoint(0, 0);
-        this.addScorelabel.setPosition(size.width - 400, size.height - 900);
+        this.addScorelabel.setPosition(size.width - 450, size.height - 900);
         this.addChild(this.addScorelabel);
+
+        this.awarded.setAnchorPoint(0.5, 0.5);
+        this.awarded.setPosition(size.width / 2, size.height / 2);
+        this.addChild(this.awarded);
+
+        this.awarded.init();
 
 
     },
@@ -112,7 +94,7 @@ Question = cc.Layer.extend({
         var self = this;
         var size = cc.director.getWinSize();
         this.correctAnwser.setAnchorPoint(0, 0);
-        switch (self.answer[0]){
+        switch (self.answer[0]) {
             case 'A':
                 self.correctAnwser.setPosition(size.width - 950, size.height - 450);
                 break;
@@ -127,32 +109,19 @@ Question = cc.Layer.extend({
                 break;
         }
         this.addChild(this.correctAnwser);
-        if(userAnwser === correctAnwser){
+        if (userAnwser === correctAnwser) {
+            this.awarded.show();
             setTimeout(function () {
-                self.removeChild(self.anwserBg)
-                self.removeChild(self.title)
-                self.removeChild(self.question)
-                self.removeChild(self.option1)
-                self.removeChild(self.option2)
-                self.removeChild(self.option3)
-                self.removeChild(self.option4)
-                self.removeChild(self.correctAnwser)
-                self.removeChild(self.addScorelabel)
-                alert('回答正确，加50米')
-            },2000)
-        }else{
+                self.removeFromParent();
+
+            }, 2000)
+
+
+        } else {
             cc.log('错误')
             setTimeout(function () {
-                self.removeChild(self.anwserBg)
-                self.removeChild(self.title)
-                self.removeChild(self.question)
-                self.removeChild(self.option1)
-                self.removeChild(self.option2)
-                self.removeChild(self.option3)
-                self.removeChild(self.option4)
-                self.removeChild(self.correctAnwser)
-                self.removeChild(self.addScorelabel)
-            },2000)
+                self.removeFromParent();
+            }, 2000)
         }
     }
 });

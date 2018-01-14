@@ -8,6 +8,7 @@
   "jsList": [
     "src/global.js",
     "src/resource.js",
+    "src/elements/Awarded.js",
     "src/elements/Barrier.js",
     "src/elements/Building.js",
     "src/elements/Obstacle.js",
@@ -20,7 +21,7 @@
     "src/scene/RankingList.js",
     "src/scene/ChooseRole.js",
     "src/ui/Button.js",
-    "src/ui/Lable.js",
+    "src/ui/Label.js",
     "src/ui/Question.js"
   ]
 }
