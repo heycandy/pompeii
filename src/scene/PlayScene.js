@@ -117,7 +117,7 @@ PlaySceneUILayer = cc.Layer.extend({
             });
 
         this.gradeBtn = new Button('grade.png', 'grade_UI.png');
-        this.gradeLabel = new cc.LabelTTF(v_PlayDistance, "Impact", 38);
+        this.gradeLabel = new cc.LabelTTF(v_PlayDistance, "Arial Bold", 38);
         // this.anwser = new cc.Sprite(I_Anwser)
         // this.title = new cc.LabelTTF('题目', "Impact", 58);
         // this.correct = new cc.Sprite(I_Correct);

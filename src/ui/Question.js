@@ -21,31 +21,31 @@ Question = cc.Layer.extend({
     init: function () {
         this._super();
         var self = this;
-        this.title = new cc.LabelTTF('题目', "Impact", 48);
-        this.question = new cc.LabelTTF(this.question, "Impact", 36, cc.size(600, 200));
-        this.option1 = new Label(this.options.A, "Impact", 36, function () {
+        this.title = new cc.LabelTTF('题目', "Arial Bold", 48);
+        this.question = new cc.LabelTTF(this.question, "Arial Bold", 36, cc.size(600, 200));
+        this.option1 = new Label(this.options.A, "Arial Bold", 36, function () {
             self.isRight(self.options.A[0], self.answer[0])
 
         }, function () {
         });
 
-        this.option2 = new Label(this.options.B, "Impact", 36, function () {
+        this.option2 = new Label(this.options.B, "Arial Bold", 36, function () {
             self.isRight(self.options.B[0], self.answer[0])
         }, function () {
         });
 
-        this.option3 = new Label(this.options.C, "Impact", 36, function () {
+        this.option3 = new Label(this.options.C, "Arial Bold", 36, function () {
             self.isRight(self.options.C[0], self.answer[0])
 
         }, function () {
         });
 
-        this.option4 = new Label(this.options.D, "Impact", 36, function () {
+        this.option4 = new Label(this.options.D, "Arial Bold", 36, function () {
             self.isRight(self.options.D[0], self.answer[0])
         }, function () {
         });
 
-        this.addScorelabel = new cc.LabelTTF('回答正确加分哦', "Impact", 32);
+        this.addScorelabel = new cc.LabelTTF('回答正确加分哦', "Arial Bold", 32);
 
         this.correctAnwser = new cc.Sprite(I_Correct);
 
@@ -113,7 +113,6 @@ Question = cc.Layer.extend({
             this.awarded.show();
             setTimeout(function () {
                 self.removeFromParent();
-
             }, 2000)
 
 

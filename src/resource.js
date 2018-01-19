@@ -38,7 +38,12 @@ var g_Resources = [
     p_Role,
     p_Item0,
     p_UI0,
-    p_UI1
+    p_UI1,
+    {
+        type:"font",
+        name:"Arial Bold",
+        srcs:["res/font/abc.ttf"]
+    }
 
     //fnt
 

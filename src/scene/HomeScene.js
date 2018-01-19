@@ -102,7 +102,6 @@ var HomeSceneUILayer = cc.Layer.extend({
 
     init: function () {
         var size = cc.director.getWinSize();
-
         this.nameLabel.setAnchorPoint(1, 0);
         this.nameLabel.setPosition(size.width - 200, size.height - 200);
         this.addChild(this.nameLabel, 0);
@@ -118,6 +117,8 @@ var HomeSceneUILayer = cc.Layer.extend({
         this.roleBtn.setAnchorPoint(1, 0);
         this.roleBtn.setPosition(size.width - 400, 100);
         this.addChild(this.roleBtn, 0);
+
+
 
     },
 
