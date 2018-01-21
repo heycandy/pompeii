@@ -16,10 +16,12 @@ var c_ROLE_STATE_LEAP = 2;
 var c_ROLE_STATE_DIE = 3;
 
 var v_PlayState = 0;
-var v_PlaySpeed = 5;
+var v_PlaySpeed = 8;
+var v_PlayFireballSpeed = 6;
 var v_PlayDistance = 0;
 var v_PlayGrade = 0;
 var answerSelf
+var isFinish = false
 
 var QuestionAndAnswer = {
     questions: [

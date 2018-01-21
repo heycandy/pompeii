@@ -43,17 +43,17 @@ var Fireball = cc.Sprite.extend({
         if(!this.state && pos.y < 200) {
             this._falldown();
         } else if(!this.state) {
-            this.y -= v_PlaySpeed;
+            this.y -= v_PlayFireballSpeed;
         }
 
         if(!this.state){
             if(!v_PlayState) {
-                this.x -= Math.ceil(v_PlaySpeed / 2);
+                this.x -= Math.ceil(v_PlayFireballSpeed / 2);
             } else {
-                this.x -= v_PlaySpeed
+                this.x -= v_PlayFireballSpeed
             }
         } else {
-            this.x -= v_PlaySpeed * v_PlayState;
+            this.x -= v_PlayFireballSpeed * v_PlayState;
         }
 
     },

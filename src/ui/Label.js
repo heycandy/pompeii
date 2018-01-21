@@ -36,7 +36,6 @@ var Label = cc.LabelTTF.extend({
             onTouchBegan: function (touch, event) {
                 var pos = touch.getLocation();
                 var target = event.getCurrentTarget();
-                cc.log(event)
                 if (cc.rectContainsPoint(target.getBoundingBox(), pos)) {
                     cc.log('onTouchBegan');
                     event._currentTarget._setFontStyle('bold')

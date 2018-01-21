@@ -4,11 +4,13 @@ Question = cc.Layer.extend({
     _question: null,
     _options: [],
     _answer: '',
+    _role:null,
 
     awarded: null,
 
-    ctor: function () {
+    ctor: function (role) {
         this._super();
+        this._role = role
 
         var NUM = Math.floor(Math.random() * 5);
         this.anwserBg = new cc.Sprite(I_Anwser);
@@ -16,6 +18,7 @@ Question = cc.Layer.extend({
         this.options = QuestionAndAnswer.options[NUM];
         this.answer = QuestionAndAnswer.answers[NUM];
         this.awarded = new Awarded();
+        this.role = new Role()
     },
 
     init: function () {
@@ -42,6 +45,7 @@ Question = cc.Layer.extend({
 
         this.option4 = new Label(this.options.D, "Arial Bold", 36, function () {
             self.isRight(self.options.D[0], self.answer[0])
+            return true
         }, function () {
         });
 
@@ -113,6 +117,9 @@ Question = cc.Layer.extend({
             this.awarded.show();
             setTimeout(function () {
                 self.removeFromParent();
+                isFinish = true
+                v_PlayState = c_PLAY_STATE_RIGHT;
+                self._role.right()
             }, 2000)
 
 
@@ -120,6 +127,9 @@ Question = cc.Layer.extend({
             cc.log('错误')
             setTimeout(function () {
                 self.removeFromParent();
+                isFinish = true
+                v_PlayState = c_PLAY_STATE_RIGHT;
+                self._role.right()
             }, 2000)
         }
     }

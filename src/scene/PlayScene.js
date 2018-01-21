@@ -44,7 +44,7 @@ var PlaySceneAniLayer = cc.Layer.extend({
         this.role = new Role();
         this.obstacle = new Obstacle(this.role, function (obstacle, role) {
             //TODO on collided
-            role.die()
+            //role.die()
 
         });
     },
@@ -111,13 +111,14 @@ PlaySceneUILayer = cc.Layer.extend({
             function () {
 
             }, function () {
-                var nextScene = new HomeScene();
-
-                cc.director.runScene(nextScene);
+                if(isFinish){
+                    var nextScene = new HomeScene();
+                    cc.director.runScene(nextScene);
+                }
             });
 
         this.gradeBtn = new Button('grade.png', 'grade_UI.png');
-        this.gradeLabel = new cc.LabelTTF(v_PlayDistance, "Arial Bold", 38);
+        this.gradeLabel = new cc.LabelTTF(v_PlayDistance, "Arial Bold", 68);
         // this.anwser = new cc.Sprite(I_Anwser)
         // this.title = new cc.LabelTTF('题目', "Impact", 58);
         // this.correct = new cc.Sprite(I_Correct);
@@ -129,26 +130,37 @@ PlaySceneUILayer = cc.Layer.extend({
         this.leftBtn = new Button(
             'left_right_leap.png', 'left_right_leap_UI_Hit.png',
             function () {
-                v_PlayState = c_PLAY_STATE_LEFT;
+                if(isFinish){
+                    v_PlayState = c_PLAY_STATE_LEFT;
+                    self._role.left();
 
-                self._role.left();
+                    v_PlaySpeed = 5
+                }
+
             }, function () {
-                v_PlayState = c_PLAY_STATE_IDLE;
+                if(isFinish){
+                    //v_PlayState = c_PLAY_STATE_IDLE;
+                    //self._role.idle();
 
-                self._role.idle();
+                    v_PlaySpeed = 8
+                }
             });
 
         this.rightBtn = new Button(
             'left_right_leap.png', 'left_right_leap_UI_Hit.png',
             function () {
-                v_PlayState = c_PLAY_STATE_RIGHT;
+                if(isFinish){
+                    v_PlayState = c_PLAY_STATE_RIGHT;
+                    self._role.right();
+                    v_PlaySpeed = 12
+                }
 
-                self._role.right();
             }, function () {
-                v_PlayState = c_PLAY_STATE_IDLE;
-
-                self._role.idle();
-
+                if(isFinish){
+                    //v_PlayState = c_PLAY_STATE_IDLE;
+                    //self._role.idle();
+                    v_PlaySpeed = 8
+                }
             });
 
         this.leapBtn = new Button(
@@ -156,7 +168,9 @@ PlaySceneUILayer = cc.Layer.extend({
             function () {
 
             }, function () {
-                self._role.leap();
+                if(isFinish){
+                    self._role.leap();
+                }
             });
 
     },
@@ -194,6 +208,9 @@ PlaySceneUILayer = cc.Layer.extend({
 
     update: function () {
         this.gradeLabel.setString(v_PlayGrade);
+        if(v_PlayDistance % 3000 ===0 && v_PlayDistance !==0){
+            v_PlaySpeed++
+        }
     },
 
     onEnter: function () {
@@ -228,7 +245,7 @@ PlayScene = cc.Scene.extend({
 
         this.uiLayer = new PlaySceneUILayer(this._role);
 
-        this.question = new Question();
+        this.question = new Question(this._role);
 
         this.init();
 
@@ -266,7 +283,6 @@ PlayScene = cc.Scene.extend({
 
     update: function (dt) {
         var delta = v_PlaySpeed * v_PlayState;
-
         v_PlayDistance += delta;
         v_PlayGrade += Math.floor(delta / 10);
 
