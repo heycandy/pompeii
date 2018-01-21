@@ -22,6 +22,7 @@
     "src/scene/ChooseRole.js",
     "src/ui/Button.js",
     "src/ui/Label.js",
-    "src/ui/Question.js"
+    "src/ui/Question.js",
+    "src/elements/Trees.js"
   ]
 }

@@ -18,6 +18,12 @@ var p_UI0 = "textures/UI0.plist";
 var i_UI1 = "textures/UI1.png";
 var p_UI1 = "textures/UI1.plist";
 
+var e_moveEffect = "sound/effect/move-effect.wav";
+var e_fireBallEffect = "sound/effect/fireBall-effect.wav";
+var e_fireEffect = "sound/effect/fireFloor-effect.wav";
+var e_leapEffect = "sound/effect/leap-effect.wav";
+var e_dieEffect = "sound/effect/die-effect.wav";
+
 var g_Resources = [
     //image
     i_HelloWorld,
@@ -43,7 +49,7 @@ var g_Resources = [
         type:"font",
         name:"Arial Bold",
         srcs:["res/font/abc.ttf"]
-    }
+    },
 
     //fnt
 
@@ -52,4 +58,9 @@ var g_Resources = [
     //bgm
 
     //effect
+    e_moveEffect,
+    e_fireBallEffect,
+    e_fireEffect,
+    e_leapEffect,
+    e_dieEffect
 ];

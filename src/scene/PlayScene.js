@@ -3,7 +3,7 @@ var PlaySceneBgLayer = cc.Layer.extend({
 
     background: null,
     ground: null,
-    anwser:null,
+    anwser: null,
 
     ctor: function () {
         this._super();
@@ -32,6 +32,7 @@ var PlaySceneAniLayer = cc.Layer.extend({
     _ground: null,
 
     building: null,
+    trees: null,
     role: null,
     obstacle: null,
 
@@ -41,6 +42,7 @@ var PlaySceneAniLayer = cc.Layer.extend({
         this._ground = ground;
 
         this.building = new Building();
+        this.trees = new Trees()
         this.role = new Role();
         this.obstacle = new Obstacle(this.role, function (obstacle, role) {
             //TODO on collided
@@ -54,11 +56,17 @@ var PlaySceneAniLayer = cc.Layer.extend({
 
         var groundHeight = this._ground.getContentSize().height;
 
+        // building
         this.building.setAnchorPoint(0, 0);
         this.building.setPosition(0, groundHeight);
         this.addChild(this.building, 0);
-
         this.building.init();
+        // trees
+        this.trees.setAnchorPoint(0, 0);
+        this.trees.setPosition(100, groundHeight);
+        this.addChild(this.trees, 100);
+
+        this.trees.init();
 
         // 修正角色Y轴有效像素
         var rolePosY = groundHeight - 10;
@@ -81,6 +89,7 @@ var PlaySceneAniLayer = cc.Layer.extend({
         this.building.update(dt);
         this.role.update(dt);
         this.obstacle.update(dt);
+        this.trees.update(dt)
 
     }
 });
@@ -135,6 +144,7 @@ PlaySceneUILayer = cc.Layer.extend({
                     self._role.left();
 
                     v_PlaySpeed = 5
+                    cc.audioEngine.playEffect(e_moveEffect,false);
                 }
 
             }, function () {
@@ -153,8 +163,8 @@ PlaySceneUILayer = cc.Layer.extend({
                     v_PlayState = c_PLAY_STATE_RIGHT;
                     self._role.right();
                     v_PlaySpeed = 12
+                    cc.audioEngine.playEffect(e_moveEffect,false)
                 }
-
             }, function () {
                 if(isFinish){
                     //v_PlayState = c_PLAY_STATE_IDLE;
@@ -166,7 +176,9 @@ PlaySceneUILayer = cc.Layer.extend({
         this.leapBtn = new Button(
             'left_right_leap.png', 'left_right_leap_UI_Hit.png',
             function () {
-
+                if(isFinish){
+                    cc.audioEngine.playEffect(e_moveEffect,false)
+                }
             }, function () {
                 if(isFinish){
                     self._role.leap();
