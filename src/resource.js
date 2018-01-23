@@ -1,12 +1,12 @@
 var i_HelloWorld = "graphics/HelloWorld.jpg";
 var i_CloseNormal = "graphics/CloseNormal.png";
 var i_CloseSelected = "graphics/CloseSelected.png";
-var i_BGHome = "graphics/BG_Home.png";
+var i_BGHome = "graphics/Game name.png";
 var i_BGPlaying = "graphics/BG_playing.png";
 var i_BGRole = "graphics/Role_BG.png";
 var i_BGTop = "graphics/TOP_BG.png";
 var i_Texture = "textures/texture.png";
-var I_Anwser = 'graphics/Anwser_BG.png';
+var I_Anwser = 'graphics/Answer_BG.png';
 var I_Correct = 'graphics/Correct_BG.jpg';
 var p_Texture = "textures/texture.plist";
 var i_Role = "textures/Role.png";

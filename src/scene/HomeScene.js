@@ -37,7 +37,7 @@ var HomeSceneAniLayer = cc.Layer.extend({
 
         this.volcano.setAnchorPoint(0, 1);
         this.volcano.setPosition(0, size.height);
-        this.addChild(this.volcano, 0);
+        //this.addChild(this.volcano, 0);
 
         this.volcano.init();
 
@@ -104,18 +104,18 @@ var HomeSceneUILayer = cc.Layer.extend({
         var size = cc.director.getWinSize();
         this.nameLabel.setAnchorPoint(1, 0);
         this.nameLabel.setPosition(size.width - 200, size.height - 200);
-        this.addChild(this.nameLabel, 0);
+        //this.addChild(this.nameLabel, 0);
 
-        this.startBtn.setAnchorPoint(1, 0);
-        this.startBtn.setPosition(size.width - 400, 300);
+        this.startBtn.setAnchorPoint(1, 1);
+        this.startBtn.setPosition(size.width - 60, 500);
         this.addChild(this.startBtn, 0);
 
-        this.topBtn.setAnchorPoint(1, 0);
-        this.topBtn.setPosition(size.width - 400, 200);
+        this.topBtn.setAnchorPoint(1, 1);
+        this.topBtn.setPosition(size.width - 60, 400);
         this.addChild(this.topBtn, 0);
 
-        this.roleBtn.setAnchorPoint(1, 0);
-        this.roleBtn.setPosition(size.width - 400, 100);
+        this.roleBtn.setAnchorPoint(1, 1);
+        this.roleBtn.setPosition(size.width - 60, 300);
         this.addChild(this.roleBtn, 0);
 
 
