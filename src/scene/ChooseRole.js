@@ -73,7 +73,7 @@ var ChooseRoleUILayer = cc.Layer.extend({
         this.three = new cc.Sprite('#Three kilometers.png');
 
         this.backBtn = new Button(
-            'Get back_UI.png', 'Get back_UI_Hit.png',
+            'get back_UI.png', 'get back_UI_Hit.png',
             function () {
 
             }, function () {

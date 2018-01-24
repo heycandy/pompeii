@@ -7,11 +7,11 @@ var Fireball = cc.Sprite.extend({
     state:0,
 
     ctor:function () {
-        this._super("#Fireball_00000.png");
+        this._super("#Fireball/Fireball_00000.png");
 
         this._animation0 = new cc.Animation();
         for (var i = 1; i < c_FRAMES_SIZE; i++) {
-            var name = "Fireball_000" + (i < 10 ? ('0' + i) : i) + ".png";
+            var name = "Fireball/Fireball_000" + (i < 10 ? ('0' + i) : i) + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(name);
             this._animation0.addSpriteFrame(frame);
         }
@@ -21,7 +21,7 @@ var Fireball = cc.Sprite.extend({
 
         this._animation1 = new cc.Animation();
         for (var j = 1; j < c_FRAMES_SIZE; j++) {
-            var name = "bonfire_000" + (j < 10 ? ('0' + j) : j) + ".png";
+            var name = "Bonfire/Bonfire_000" + (j < 10 ? ('0' + j) : j) + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(name);
             this._animation1.addSpriteFrame(frame);
         }

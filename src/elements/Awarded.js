@@ -3,11 +3,11 @@ var Awarded = cc.Sprite.extend({
     _animation: null,
 
     ctor:function () {
-        this._super("#awarded_marks_00000.png");
+        this._super("#Awarded/awarded marks_00000.png");
 
         this._animation = new cc.Animation();
         for (var i = 1; i < c_FRAMES_SIZE * 2; i++) {
-            var name = "awarded_marks_000" + (i < 10 ? ('0' + i) : i) + ".png";
+            var name = "Awarded/awarded marks_000" + (i < 10 ? ('0' + i) : i) + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(name);
 
             this._animation.addSpriteFrame(frame);

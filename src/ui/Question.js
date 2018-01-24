@@ -13,7 +13,7 @@ Question = cc.Layer.extend({
         this._role = role
 
         var NUM = Math.floor(Math.random() * 5);
-        this.anwserBg = new cc.Sprite(I_Anwser);
+        this.anwserBg = new cc.Sprite('#Answer_BG.png');
         this.question = QuestionAndAnswer.questions[NUM];
         this.options = QuestionAndAnswer.options[NUM];
         this.answer = QuestionAndAnswer.answers[NUM];
@@ -51,7 +51,7 @@ Question = cc.Layer.extend({
 
         this.addScorelabel = new cc.LabelTTF('回答正确加分哦', "Arial Bold", 32);
 
-        this.correctAnwser = new cc.Sprite(I_Correct);
+        this.correctAnwser = new cc.Sprite('#Right.png');
 
         var size = cc.director.getWinSize();
         this.anwserBg.setAnchorPoint(1, 1);

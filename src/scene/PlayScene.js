@@ -9,7 +9,7 @@ var PlaySceneBgLayer = cc.Layer.extend({
         this._super();
 
         this.background = new cc.Sprite(i_BGPlaying);
-        this.ground = new cc.Sprite('#MS_ground.png');
+        this.ground = new cc.Sprite('#Ms_Ground.png');
 
     },
 
@@ -62,11 +62,11 @@ var PlaySceneAniLayer = cc.Layer.extend({
         this.addChild(this.building, 0);
         this.building.init();
         // trees
-        this.trees.setAnchorPoint(0, 0);
-        this.trees.setPosition(100, groundHeight);
-        this.addChild(this.trees, 100);
-
-        this.trees.init();
+        // this.trees.setAnchorPoint(0, 0);
+        // this.trees.setPosition(100, groundHeight);
+        // this.addChild(this.trees, 100);
+        //
+        // this.trees.init();
 
         // 修正角色Y轴有效像素
         var rolePosY = groundHeight - 10;
@@ -128,23 +128,17 @@ PlaySceneUILayer = cc.Layer.extend({
 
         this.gradeBtn = new Button('grade.png', 'grade_UI.png');
         this.gradeLabel = new cc.LabelTTF(v_PlayDistance, "Arial Bold", 68);
-        // this.anwser = new cc.Sprite(I_Anwser)
-        // this.title = new cc.LabelTTF('题目', "Impact", 58);
-        // this.correct = new cc.Sprite(I_Correct);
-
 
         var self = this;
-        answerSelf = this
-        cc.log(self)
         this.leftBtn = new Button(
-            'left_right_leap.png', 'left_right_leap_UI_Hit.png',
+            'left_UI.png', 'left_UI_Hit.png',
             function () {
                 if(isFinish){
                     v_PlayState = c_PLAY_STATE_LEFT;
                     self._role.left();
 
                     v_PlaySpeed = 5
-                    cc.audioEngine.playEffect(e_moveEffect,false);
+                    cc.audioEngine.playEffect(e_move,false);
                 }
 
             }, function () {
@@ -157,13 +151,13 @@ PlaySceneUILayer = cc.Layer.extend({
             });
 
         this.rightBtn = new Button(
-            'left_right_leap.png', 'left_right_leap_UI_Hit.png',
+            'right_UI.png', 'right_UI_Hit.png',
             function () {
                 if(isFinish){
                     v_PlayState = c_PLAY_STATE_RIGHT;
                     self._role.right();
                     v_PlaySpeed = 12
-                    cc.audioEngine.playEffect(e_moveEffect,false)
+                    cc.audioEngine.playEffect(e_move,false)
                 }
             }, function () {
                 if(isFinish){
@@ -174,10 +168,10 @@ PlaySceneUILayer = cc.Layer.extend({
             });
 
         this.leapBtn = new Button(
-            'left_right_leap.png', 'left_right_leap_UI_Hit.png',
+            'leap_UI.png', 'leap_UI_Hit.png',
             function () {
                 if(isFinish){
-                    cc.audioEngine.playEffect(e_moveEffect,false)
+                    cc.audioEngine.playEffect(e_move,false)
                 }
             }, function () {
                 if(isFinish){
@@ -202,12 +196,10 @@ PlaySceneUILayer = cc.Layer.extend({
         this.gradeLabel.setPosition(size.width, size.height);
         this.addChild(this.gradeLabel);
 
-        this.leftBtn.rotation = -90;
         this.leftBtn.setAnchorPoint(0.5, 0.5);
         this.leftBtn.setPosition(120, 80);
         this.addChild(this.leftBtn);
 
-        this.rightBtn.rotation = 90;
         this.rightBtn.setAnchorPoint(0.5, 0.5);
         this.rightBtn.setPosition(300, 80);
         this.addChild(this.rightBtn);

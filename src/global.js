@@ -8,8 +8,10 @@ var c_PLAY_STATE_IDLE = 0;
 var c_PLAY_STATE_LEFT = -1;
 var c_PLAY_STATE_RIGHT = 1;
 
-var c_ROLE_DIRECTION_LEFT = 0;
-var c_ROLE_DIRECTION_RIGHT = 1;
+var c_ROLE_SIZE = 2;
+var c_ROLE_RUN_FRAMES = 8;
+var c_ROLE_LEAP_FRAMES = 21;
+var c_ROLE_DIE_FRAMES = 13;
 var c_ROLE_STATE_IDLE = 0;
 var c_ROLE_STATE_RUN = 1;
 var c_ROLE_STATE_LEAP = 2;
@@ -20,8 +22,8 @@ var v_PlaySpeed = 8;
 var v_PlayFireballSpeed = 6;
 var v_PlayDistance = 0;
 var v_PlayGrade = 0;
-var answerSelf
-var isFinish = false
+
+var isFinish = false;
 
 var QuestionAndAnswer = {
     questions: [

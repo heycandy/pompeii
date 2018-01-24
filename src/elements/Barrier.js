@@ -1,7 +1,7 @@
 var Barrier = cc.Sprite.extend({
 
     ctor: function (type) {
-        this._super('#Barrier_'+ type +'.png');
+        this._super('#Barrier'+ type +'.png');
 
         this.init();
     },

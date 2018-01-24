@@ -22,10 +22,9 @@ cc.game.onStart = function () {
 
     //load resources
     cc.LoaderScene.preload(g_Resources, function () {
+        cc.spriteFrameCache.addSpriteFrames(p_Item);
         cc.spriteFrameCache.addSpriteFrames(p_Role);
-        cc.spriteFrameCache.addSpriteFrames(p_Item0);
-        cc.spriteFrameCache.addSpriteFrames(p_UI0);
-        cc.spriteFrameCache.addSpriteFrames(p_UI1);
+        cc.spriteFrameCache.addSpriteFrames(p_UI);
 
         cc.director.runScene(new HomeScene());
     }, this);

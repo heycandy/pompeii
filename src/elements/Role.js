@@ -1,51 +1,85 @@
 var Role = cc.Sprite.extend({
 
     // Idle
-    _frame0: null,
+    _frameIdles: null,
     // Run
-    _animation1: null,
+    _aniRuns: null,
     // Leap
-    _animation2: null,
+    _aniLeaps: null,
     // Die
-    _animation3: null,
+    _aniDies: null,
 
     state: c_PLAY_STATE_IDLE,
-    direction: c_ROLE_DIRECTION_RIGHT,
+    currIndex: 1,
 
-    ctor: function () {
-        this._super("#Role_Run_00000.png");
-        this._frame0 = cc.spriteFrameCache.getSpriteFrame('Role_Run_00000.png');
-        this._animation1 = new cc.Animation();
-        for (var i = 0; i < c_FRAMES_SIZE; i++) {
-            var name = "Role_Run_000" + (i < 10 ? ('0' + i) : i) + ".png";
-            var frame = cc.spriteFrameCache.getSpriteFrame(name);
-            this._animation1.addSpriteFrame(frame);
-        }
-        this._animation1.retain();
+    /**
+     * Role1/Role1_Run/Role1_Run_00000.png
+     * Role2/Role2_Run/Role2_run_00000.png
+     *
+     * @param index
+     * @returns {boolean}
+     */
+    ctor: function (index) {
+        this._super("#Role"+ index | 1 +"/Role"+ index | 1 +"_Run/Role"+ index | 1 +"_Run_00000.png");
 
-        this._animation2 = new cc.Animation();
-        for (var i = 0; i < c_FRAMES_SIZE; i++) {
-            var name = "Role_Leap_000" + (i < 10 ? ('0' + i) : i) + ".png";
-            var frame = cc.spriteFrameCache.getSpriteFrame(name);
-            this._animation2.addSpriteFrame(frame);
-        }
-        this._animation2.retain();
+        this.currIndex = index | 1;
+        this._frameIdles = new Array();
+        this._aniRuns = new Array();
+        this._aniLeaps = new Array();
+        this._aniDies = new Array();
 
-        this._animation3 = new cc.Animation();
-        for (var i = 0; i < c_FRAMES_SIZE; i++) {
-            var name = "Role_Die_000" + (i < 10 ? ('0' + i) : i) + ".png";
-            var frame = cc.spriteFrameCache.getSpriteFrame(name);
-            this._animation3.addSpriteFrame(frame);
+        for(var i = 1; i <= c_ROLE_SIZE; i++) {
+            var frameIdle = cc.spriteFrameCache.getSpriteFrame(
+                "Role"+ i +"/Role"+ i +"_Run/Role"+ i +"_Run_00000.png");
+            this._frameIdles.push(frameIdle);
+
+            var aniRun = new cc.Animation();
+            for(var j = 0; j < c_ROLE_RUN_FRAMES; j++) {
+                var name = "Role"+ i +"/Role"+ i +"_Run/Role"+ i +"_Run_000" + (j < 10 ? ('0' + j) : j) + ".png";
+                var frame = cc.spriteFrameCache.getSpriteFrame(name)
+
+                aniRun.addSpriteFrame(frame);
+                aniRun.retain();
+            }
+            this._aniRuns.push(aniRun);
+
+            var aniLeap = new cc.Animation();
+            for(var j = 0; j < c_ROLE_LEAP_FRAMES; j++) {
+                var name = "Role"+ i +"/Role"+ i +"_Leap/Role"+ i +"_Leap_000" + (j < 10 ? ('0' + j) : j) + ".png";
+                var frame = cc.spriteFrameCache.getSpriteFrame(name);
+
+                aniLeap.addSpriteFrame(frame);
+                aniLeap.retain();
+            }
+            this._aniLeaps.push(aniLeap);
+
+            var aniDie = new cc.Animation();
+            for(var j = 0; j < c_ROLE_DIE_FRAMES; j++) {
+                var name = "Role"+ i +"/Role"+ i +"_Die/Role"+ i +"_Die_000" + (j < 10 ? ('0' + j) : j) + ".png";
+                var frame = cc.spriteFrameCache.getSpriteFrame(name);
+
+                aniDie.addSpriteFrame(frame);
+                aniDie.retain();
+            }
+            this._aniDies.push(aniDie);
+
         }
-        this._animation3.retain();
 
         return true;
     },
 
     init: function () {
-        this._animation1.setDelayPerUnit(1 / c_FRAMES_SIZE);
-        this._animation2.setDelayPerUnit(1 / c_FRAMES_SIZE);
-        this._animation3.setDelayPerUnit(1 / c_FRAMES_SIZE);
+        for(var i = 0; i < this._aniRuns.length; i++) {
+            this._aniRuns[i].setDelayPerUnit(1 / c_FRAMES_SIZE);
+        }
+
+        for(var i = 0; i < this._aniLeaps.length; i++) {
+            this._aniLeaps[i].setDelayPerUnit(1 / c_FRAMES_SIZE);
+        }
+
+        for(var i = 0; i < this._aniDies.length; i++) {
+            this._aniDies[i].setDelayPerUnit(1 / c_FRAMES_SIZE);
+        }
 
         this.idle();
     },
@@ -58,35 +92,41 @@ var Role = cc.Sprite.extend({
     onExit: function () {
         this._super();
 
-        this._animation1.release();
-        this._animation2.release();
-        this._animation3.release();
+        for(var i = 0; i < this._aniRuns.length; i++) {
+            this._aniRuns[i].release();
+        }
+
+        for(var i = 0; i < this._aniLeaps.length; i++) {
+            this._aniLeaps[i].release();
+        }
+
+        for(var i = 0; i < this._aniDies.length; i++) {
+            this._aniDies[i].release();
+        }
+
     },
 
     idle: function () {
         if(this.state !== c_ROLE_STATE_DIE && this.state !== c_ROLE_STATE_LEAP) {
             this.state = c_ROLE_STATE_IDLE;
-
             this.stopAllActions();
-            this.setSpriteFrame(this._frame0);
+            this.setSpriteFrame(this._frameIdles[this.currIndex - 1]);
         }
     },
 
     left: function () {
-        this.direction = c_ROLE_DIRECTION_LEFT;
         this._run();
     },
 
     right: function () {
-        this.direction = c_ROLE_DIRECTION_RIGHT;
         this._run();
     },
 
     _run: function () {
         if(this.state === c_ROLE_STATE_IDLE) {
             this.state = c_ROLE_STATE_RUN;
-
-            var action = cc.animate(this._animation1).repeatForever();
+            cc.log('!!!!!!!!!!!!!!11');
+            var action = cc.animate(this._aniRuns[this.currIndex - 1]).repeatForever();
 
             this.stopAllActions();
             this.runAction(action);
@@ -97,7 +137,7 @@ var Role = cc.Sprite.extend({
         if (this.state !== c_ROLE_STATE_DIE && this.state !== c_ROLE_STATE_LEAP) {
             this.state = c_ROLE_STATE_LEAP;
 
-            var action0 = cc.animate(this._animation2);
+            var action0 = cc.animate(this._aniLeaps[this.currIndex - 1]);
             var action1 = cc.callFunc(this.afterLeap, this);
             var sequence = cc.sequence(action0, action1);
 
@@ -120,11 +160,15 @@ var Role = cc.Sprite.extend({
         if (this.state !== c_ROLE_STATE_DIE) {
             this.state = c_ROLE_STATE_DIE;
 
-            var action = cc.animate(this._animation3);
+            var action = cc.animate(this._aniDies[this.currIndex - 1]);
 
             this.stopAllActions();
             this.runAction(action);
         }
+    },
+
+    setCurr: function (index) {
+        this.currIndex = index;
     }
 
 });

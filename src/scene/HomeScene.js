@@ -20,13 +20,13 @@ var HomeSceneBgLayer = cc.Layer.extend({
 // Animation Layer (Animation elements)
 var HomeSceneAniLayer = cc.Layer.extend({
 
-    volcano: null,
+    // volcano: null,
     role: null,
 
     ctor: function () {
         this._super();
 
-        this.volcano = new Volcano();
+        // this.volcano = new Volcano();
         this.role = new Role();
     },
 
@@ -35,11 +35,11 @@ var HomeSceneAniLayer = cc.Layer.extend({
 
         var size = cc.director.getWinSize();
 
-        this.volcano.setAnchorPoint(0, 1);
-        this.volcano.setPosition(0, size.height);
+        // this.volcano.setAnchorPoint(0, 1);
+        // this.volcano.setPosition(0, size.height);
         //this.addChild(this.volcano, 0);
 
-        this.volcano.init();
+        // this.volcano.init();
 
         this.role.setAnchorPoint(0, 0);
         this.role.setPosition(300, 0);
@@ -65,7 +65,7 @@ var HomeSceneUILayer = cc.Layer.extend({
     ctor: function () {
         this._super();
 
-        this.nameLabel = new cc.Sprite('#Game name.png');
+        this.nameLabel = new cc.Sprite(i_GameName);
         this.startBtn = new Button(
             'Start game_ui.png', 'Start game_ui_Hit.png',
             function () {
@@ -102,9 +102,9 @@ var HomeSceneUILayer = cc.Layer.extend({
 
     init: function () {
         var size = cc.director.getWinSize();
-        this.nameLabel.setAnchorPoint(1, 0);
-        this.nameLabel.setPosition(size.width - 200, size.height - 200);
-        //this.addChild(this.nameLabel, 0);
+        this.nameLabel.setAnchorPoint(0, 0);
+        this.nameLabel.setPosition(0, 0);
+        this.addChild(this.nameLabel, 0);
 
         this.startBtn.setAnchorPoint(1, 1);
         this.startBtn.setPosition(size.width - 60, 500);
