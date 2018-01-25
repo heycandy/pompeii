@@ -4,7 +4,7 @@ Question = cc.Layer.extend({
     _question: null,
     _options: [],
     _answer: '',
-    _role:null,
+    _role: null,
 
     awarded: null,
 
@@ -14,21 +14,31 @@ Question = cc.Layer.extend({
 
         var NUM = Math.floor(Math.random() * 5);
         this.anwserBg = new cc.Sprite('#Answer_BG.png');
+
         this.question = QuestionAndAnswer.questions[NUM];
         this.options = QuestionAndAnswer.options[NUM];
         this.answer = QuestionAndAnswer.answers[NUM];
         this.awarded = new Awarded();
         this.role = new Role()
     },
-
+    touchListener: function () {
+        this.touchListener = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function (touch, event) {
+                return true
+            }
+        });
+        cc.eventManager.addListener(this.touchListener, this);
+    },
     init: function () {
         this._super();
         var self = this;
+        this.touchListener();
         this.title = new cc.LabelTTF('题目', "Arial Bold", 48);
         this.question = new cc.LabelTTF(this.question, "Arial Bold", 36, cc.size(600, 200));
         this.option1 = new Label(this.options.A, "Arial Bold", 36, function () {
             self.isRight(self.options.A[0], self.answer[0])
-
         }, function () {
         });
 
@@ -39,13 +49,11 @@ Question = cc.Layer.extend({
 
         this.option3 = new Label(this.options.C, "Arial Bold", 36, function () {
             self.isRight(self.options.C[0], self.answer[0])
-
         }, function () {
         });
 
         this.option4 = new Label(this.options.D, "Arial Bold", 36, function () {
             self.isRight(self.options.D[0], self.answer[0])
-            return true
         }, function () {
         });
 
@@ -117,7 +125,6 @@ Question = cc.Layer.extend({
             this.awarded.show();
             setTimeout(function () {
                 self.removeFromParent();
-                isFinish = true
                 v_PlayState = c_PLAY_STATE_RIGHT;
                 self._role.right()
             }, 2000)
@@ -127,7 +134,6 @@ Question = cc.Layer.extend({
             cc.log('错误')
             setTimeout(function () {
                 self.removeFromParent();
-                isFinish = true
                 v_PlayState = c_PLAY_STATE_RIGHT;
                 self._role.right()
             }, 2000)

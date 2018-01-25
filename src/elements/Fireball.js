@@ -2,11 +2,13 @@ var Fireball = cc.Sprite.extend({
 
     _animation0: null,
     _animation1: null,
+    auE: null,
 
     speed:0,
     state:0,
 
     ctor:function () {
+        this.auE = cc.audioEngine;
         this._super("#Fireball/Fireball_00000.png");
 
         this._animation0 = new cc.Animation();
@@ -38,11 +40,15 @@ var Fireball = cc.Sprite.extend({
     },
 
     update:function () {
+
+
+
         var pos = this.getPosition();
 
         if(!this.state && pos.y < 200) {
             this._falldown();
         } else if(!this.state) {
+            this.auE.playEffect(e_fireBall, false)
             this.y -= v_PlayFireballSpeed;
         }
 
@@ -63,12 +69,14 @@ var Fireball = cc.Sprite.extend({
         this.retain();
         this.removeFromParent();
     },
-    
+
     reuse: function () {
         this.init();
     },
 
     _falldown: function () {
+        this.auE.playEffect(e_fireFloor, false)
+
         this.stopAllActions();
 
         this.state = 1;

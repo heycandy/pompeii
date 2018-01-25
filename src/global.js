@@ -23,8 +23,6 @@ var v_PlayFireballSpeed = 6;
 var v_PlayDistance = 0;
 var v_PlayGrade = 0;
 
-var isFinish = false;
-
 var QuestionAndAnswer = {
     questions: [
         '公元79年的火山喷发，导致庞贝古城被掩埋。这座爆发的火山是？',

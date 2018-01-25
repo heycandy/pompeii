@@ -20,9 +20,12 @@ var f_Font = {
 
 var e_move = "sounds/move-effect.wav";
 var e_fireBall = "sounds/fireBall-effect.wav";
-var e_fire = "sounds/fireFloor-effect.wav";
+var e_fireFloor = "sounds/fireFloor-effect.wav";
 var e_leap = "sounds/leap-effect.wav";
 var e_die = "sounds/die-effect.wav";
+
+var m_home = "sounds/home-music.wav";
+var m_bg = "sounds/bg-music.wav";
 
 var g_Resources = [
     //image
@@ -47,13 +50,15 @@ var g_Resources = [
 
     //tmx
 
-    //bgm
+    //effect
     e_move,
     e_fireBall,
-    e_fire,
+    e_fireFloor,
     e_leap,
-    e_die
+    e_die,
 
-    //effect
+    //music
+    m_home,
+    m_bg
 
 ];

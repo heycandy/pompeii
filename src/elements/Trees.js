@@ -8,9 +8,10 @@ var Trees = cc.Layer.extend({
 
         this.offsetX = 0;
         this.trees = [
-            new cc.Sprite('#MS_1.png'),
-            new cc.Sprite('#MS_2.png'),
-            new cc.Sprite('#MS_3.png')
+            new cc.Sprite('#FG_1.png'),
+            new cc.Sprite('#FG_2.png'),
+            new cc.Sprite('#FG_3.png'),
+            new cc.Sprite('#FG_4.png')
         ]
     },
 

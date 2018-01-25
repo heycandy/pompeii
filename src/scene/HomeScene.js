@@ -2,6 +2,8 @@
 var HomeSceneBgLayer = cc.Layer.extend({
 
     background: null,
+    m_home: null,
+    auE: null,
 
     ctor: function () {
         this._super();
@@ -10,6 +12,8 @@ var HomeSceneBgLayer = cc.Layer.extend({
     },
 
     init: function () {
+        this.auE = cc.audioEngine;
+        this.m_home = this.auE.playMusic(m_home, true)
         this.background.setAnchorPoint(0, 0);
         this.background.setPosition(0, 0);
         this.addChild(this.background, 0);
@@ -61,8 +65,11 @@ var HomeSceneUILayer = cc.Layer.extend({
     startBtn: null,
     topBtn: null,
     roleBtn: null,
+    auE: null,
+
 
     ctor: function () {
+        var self = this;
         this._super();
 
         this.nameLabel = new cc.Sprite(i_GameName);
@@ -71,6 +78,10 @@ var HomeSceneUILayer = cc.Layer.extend({
             function () {
 
             }, function () {
+                self.auE = cc.audioEngine;
+                self.auE.stopMusic(true);
+                self.auE.playMusic(m_bg, true);
+
                 var nextScene = new PlayScene();
 
                 cc.director.runScene(nextScene);

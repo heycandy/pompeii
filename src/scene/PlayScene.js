@@ -26,13 +26,35 @@ var PlaySceneBgLayer = cc.Layer.extend({
     }
 });
 
+// trees
+var TreesAniLayer = cc.Layer.extend({
+    trees: null,
+    ctor: function () {
+        this._super();
+        this.trees = new Trees()
+
+    },
+    init: function () {
+        var size = cc.director.getWinSize();
+        this._super();
+        // trees
+        this.trees.setAnchorPoint(0, 0);
+        this.trees.setPosition(size.width - 1200, 0);
+        this.addChild(this.trees, 0);
+        this.trees.init();
+    },
+
+    update: function (dt) {
+        this.trees.update(dt)
+    }
+});
+
 // Animation Layer (Animation elements)
 var PlaySceneAniLayer = cc.Layer.extend({
 
     _ground: null,
 
     building: null,
-    trees: null,
     role: null,
     obstacle: null,
 
@@ -61,12 +83,7 @@ var PlaySceneAniLayer = cc.Layer.extend({
         this.building.setPosition(0, groundHeight);
         this.addChild(this.building, 0);
         this.building.init();
-        // trees
-        // this.trees.setAnchorPoint(0, 0);
-        // this.trees.setPosition(100, groundHeight);
-        // this.addChild(this.trees, 100);
-        //
-        // this.trees.init();
+
 
         // 修正角色Y轴有效像素
         var rolePosY = groundHeight - 10;
@@ -82,7 +99,6 @@ var PlaySceneAniLayer = cc.Layer.extend({
         this.addChild(this.obstacle, 0);
 
         this.obstacle.init();
-
     },
 
     update: function (dt) {
@@ -120,10 +136,8 @@ PlaySceneUILayer = cc.Layer.extend({
             function () {
 
             }, function () {
-                if(isFinish){
-                    var nextScene = new HomeScene();
-                    cc.director.runScene(nextScene);
-                }
+                var nextScene = new HomeScene();
+                cc.director.runScene(nextScene);
             });
 
         this.gradeBtn = new Button('grade.png', 'grade_UI.png');
@@ -133,50 +147,38 @@ PlaySceneUILayer = cc.Layer.extend({
         this.leftBtn = new Button(
             'left_UI.png', 'left_UI_Hit.png',
             function () {
-                if(isFinish){
-                    v_PlayState = c_PLAY_STATE_LEFT;
-                    self._role.left();
+                v_PlayState = c_PLAY_STATE_LEFT;
+                self._role.left();
 
-                    v_PlaySpeed = 5
-                    cc.audioEngine.playEffect(e_move,false);
-                }
+                v_PlaySpeed = 5
+                cc.audioEngine.playEffect(e_move,false);
 
             }, function () {
-                if(isFinish){
-                    //v_PlayState = c_PLAY_STATE_IDLE;
-                    //self._role.idle();
+                //v_PlayState = c_PLAY_STATE_IDLE;
+                //self._role.idle();
 
-                    v_PlaySpeed = 8
-                }
+                v_PlaySpeed = 8
             });
 
         this.rightBtn = new Button(
             'right_UI.png', 'right_UI_Hit.png',
             function () {
-                if(isFinish){
-                    v_PlayState = c_PLAY_STATE_RIGHT;
-                    self._role.right();
-                    v_PlaySpeed = 12
-                    cc.audioEngine.playEffect(e_move,false)
-                }
+                v_PlayState = c_PLAY_STATE_RIGHT;
+                self._role.right();
+                v_PlaySpeed = 12
+                cc.audioEngine.playEffect(e_move,false)
             }, function () {
-                if(isFinish){
-                    //v_PlayState = c_PLAY_STATE_IDLE;
-                    //self._role.idle();
-                    v_PlaySpeed = 8
-                }
+                //v_PlayState = c_PLAY_STATE_IDLE;
+                //self._role.idle();
+                v_PlaySpeed = 8
             });
 
         this.leapBtn = new Button(
             'leap_UI.png', 'leap_UI_Hit.png',
             function () {
-                if(isFinish){
-                    cc.audioEngine.playEffect(e_move,false)
-                }
+                cc.audioEngine.playEffect(e_leap,false)
             }, function () {
-                if(isFinish){
-                    self._role.leap();
-                }
+                self._role.leap();
             });
 
     },
@@ -251,6 +253,8 @@ PlayScene = cc.Scene.extend({
 
         this.question = new Question(this._role);
 
+        this.treesLayer = new TreesAniLayer()
+
         this.init();
 
     },
@@ -270,11 +274,13 @@ PlayScene = cc.Scene.extend({
         this.addChild(this.aniLayer, c_ZORDER_MID);
         this.addChild(this.uiLayer, c_ZORDER_TOP);
         this.addChild(this.question, c_ZORDER_TOP);
+        this.addChild(this.treesLayer, c_ZORDER_TOP)
 
         this.bgLayer.init();
         this.aniLayer.init();
         this.uiLayer.init();
         this.question.init();
+        this.treesLayer.init();
 
         this.bgLayer.bake();
 
@@ -292,6 +298,7 @@ PlayScene = cc.Scene.extend({
 
         this.aniLayer.update(dt);
         this.uiLayer.update(dt);
+        this.treesLayer.update(dt);
 
     }
 });
