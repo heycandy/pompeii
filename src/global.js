@@ -8,7 +8,7 @@ var c_PLAY_STATE_IDLE = 0;
 var c_PLAY_STATE_LEFT = -1;
 var c_PLAY_STATE_RIGHT = 1;
 
-var c_ROLE_SIZE = 2;
+var c_ROLE_SIZE = 4;
 var c_ROLE_RUN_FRAMES = 8;
 var c_ROLE_LEAP_FRAMES = 21;
 var c_ROLE_DIE_FRAMES = 13;
